@@ -13,12 +13,17 @@ public class EffectSound : MonoBehaviour
         get { return audioSource.mute; }
         set { audioSource.mute = value; }
     }
-    public AudioSource audioSource;
+   AudioSource audioSource;
 
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
         audioSource.volume = data.effectScale;
         audioSource.mute = data.isMute;
+    }
+
+    public void PlayOneShot(AudioClip clip)
+    {
+        audioSource.PlayOneShot(clip);
     }
 }

@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff83dfdbace4d464895d72551b188a7a, type: 3}
   m_Name: SoundData
   m_EditorClassIdentifier: 
-  bgmScale: 0
+  bgmScale: 1
   effectScale: 1
   isMute: 0

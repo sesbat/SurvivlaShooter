@@ -11,6 +11,7 @@ public class PlayerInput : MonoBehaviour
     public float moveV { get; set; }
     public float moveH { get; set; }
     public bool fire { get; set; }
+    public bool left_fire { get; set; }
     public Vector3 mousePos { get; set; }
 
     // Update is called once per frame
@@ -19,6 +20,7 @@ public class PlayerInput : MonoBehaviour
         moveV = Input.GetAxisRaw(moveVName);
         moveH = Input.GetAxisRaw(moveHName);
         fire = Input.GetButton(FireName);
+        left_fire = Input.GetMouseButton(1);
         mousePos = Input.mousePosition;
     }
 }

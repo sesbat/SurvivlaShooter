@@ -57,6 +57,10 @@ public class Setting : MonoBehaviour
     {
         Application.Quit();
     }
+    public void OnClickResume()
+    {
+        gameObject.SetActive(false);
+    }
 
     private void OnEnable()
     {

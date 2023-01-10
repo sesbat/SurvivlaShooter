@@ -4,6 +4,9 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEditorInternal;
+using UnityEngine.AI;
+using UnityEngine.SocialPlatforms.Impl;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,18 +14,30 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     GameObject hudUi;
 
+    [SerializeField]
+    GameObject hitUi;
+    [SerializeField]
+    GameObject gameOverObj;
+
     Setting setting;
-    TextMeshProUGUI score;
+    public bool isSetting {
+        get { return setting.gameObject.activeSelf; }
+    }
+    int score = 0;
+    TextMeshProUGUI scoreTxt;
     Slider hpBar;
     bool isGameOver = false;
 
+    public void SetMaxHp(int max) => hpBar.maxValue = max;
     public float SetHP {
         set { hpBar.value = value; }
         get { return hpBar.value; }
     }
-    public int SetScore {
+
+    public int AddScore {
         set {
-            score.text = $"SCORE:{value}";
+            score += value;
+            scoreTxt.text = $"SCORE:{score}";
         }
     }
 
@@ -31,8 +46,9 @@ public class GameManager : MonoBehaviour
         if (instance == null)
         {
             setting = hudUi.transform.GetChild(4).GetComponent<Setting>();
-            score = hudUi.GetComponentInChildren<TextMeshProUGUI>();
+            scoreTxt = hudUi.GetComponentInChildren<TextMeshProUGUI>();
             hpBar = hudUi.GetComponentInChildren<Slider>();
+            AddScore = 0;
             instance = this;
         }
         else
@@ -53,6 +69,8 @@ public class GameManager : MonoBehaviour
         {
             enemy.GameOver();
         }
+        gameOverObj.SetActive(true);
+        Invoke("ResetGame", 5);
     }
 
     private void Update()
@@ -61,5 +79,21 @@ public class GameManager : MonoBehaviour
         {
             setting.gameObject.SetActive(!setting.gameObject.activeSelf);
         }
+    }
+
+    public IEnumerator HitPlayerUi()
+    {
+        if(!hitUi.activeSelf)
+        {
+            hitUi.SetActive(true);
+            yield return new WaitForSeconds(0.1f);
+            hitUi.SetActive(false);
+        }
+        yield return null;
+    }
+
+    public void ResetGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

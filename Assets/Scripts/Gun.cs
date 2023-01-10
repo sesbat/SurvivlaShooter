@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
 
 public class Gun : MonoBehaviour
 {
@@ -8,14 +9,16 @@ public class Gun : MonoBehaviour
     public Transform gunPivot;
 
     public ParticleSystem gunFireEffect;
+    [SerializeField]
+    public GameObject gunLight;
     private LineRenderer bulletLine;
-    private AudioSource gunAudio;
+    private EffectSound gunAudio;
 
     private float lastFireTime;
 
     private void Awake()
     {
-        gunAudio = GetComponent<AudioSource>();
+        gunAudio = GetComponent<EffectSound>();
         bulletLine = GetComponent<LineRenderer>();
 
         bulletLine.enabled = false;
@@ -58,6 +61,7 @@ public class Gun : MonoBehaviour
 
         bulletLine.enabled = true;
         gunFireEffect.Play();
+        gunLight.SetActive(true);
 
         bulletLine.SetPosition(0, gunPivot.transform.position);
         bulletLine.SetPosition(1, hitPos);
@@ -67,5 +71,7 @@ public class Gun : MonoBehaviour
         yield return new WaitForSeconds(0.03f);
 
         bulletLine.enabled = false;
+        gunLight.SetActive(false);
     }
+
 }

@@ -13,7 +13,6 @@ public class Zombie : AliveObjectHealth
     public ZombieData data;
 
     LayerMask targetMask;
-    CapsuleCollider bodyCollider;
     NavMeshAgent pathFinder; // 경로계산 AI 에이전트
     Animator animator;
     Coroutine moveCoroutine; //움직이는 함수 OnDamage 에서 Death가 true면 중단
@@ -22,6 +21,9 @@ public class Zombie : AliveObjectHealth
     ParticleSystem hitEffect; //피격 파티클
 
     AliveObjectHealth myTarget; //플레이어
+    public EffectSound audio;
+    public AudioClip hitClip;
+    public AudioClip deathClip;
 
     //타겟이 존재하는지 존재하지 않는지
     bool isTargeting 
@@ -35,7 +37,6 @@ public class Zombie : AliveObjectHealth
     private void Awake()
     {
         targetMask = LayerMask.GetMask("Player");
-        bodyCollider = GetComponent<CapsuleCollider>();
         pathFinder = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
     }
@@ -50,9 +51,12 @@ public class Zombie : AliveObjectHealth
 
         pathFinder.isStopped = true; //시작할땐 네비게이션x
 
+        OnDead += () => GameManager.instance.AddScore = 100;
         OnDead += () => StopCoroutine(moveCoroutine); //죽을때 함께 호출하는 함수들, 움직이는 코루틴 종료
         OnDead += () => animator.SetTrigger("Death"); //죽는 애니메이션 출력
         OnDead += () => pathFinder.enabled = false; //네비게이션 비활성화
+        OnDead += () => { var cols = GetComponents<CapsuleCollider>(); foreach (var col in cols) col.enabled = false; };
+        OnDead += () => GetComponent<Rigidbody>().AddForce(Vector3.up * 100);
 
         moveCoroutine = StartCoroutine(UpdateMove()); //움직이는 코루틴 시작
 
@@ -99,7 +103,6 @@ public class Zombie : AliveObjectHealth
 
     public override void DieAniamtion() //Death 애니메이션 중에 호출
     {
-        bodyCollider.enabled = false; //콜라이더를 비활성화 시켜 땅으로 떨구고
         Destroy(gameObject, 1f); //1초뒤 삭제 예약
     }
 
@@ -119,9 +122,11 @@ public class Zombie : AliveObjectHealth
         hitEffect.transform.rotation = Quaternion.LookRotation(hitNormal);
         hitEffect.Play(); //이펙트 출력 해주고
         base.OnDamage(dmg, hitPoint, hitNormal); //데미지 주고
+        audio.PlayOneShot(hitClip);
 
         if (isDead) //만약 뒤졌다면
         {
+            audio.PlayOneShot(deathClip);
             OnDead(); //Action 에 넣은 이벤트(함수) 들 호출.
         }
 

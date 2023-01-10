@@ -9,6 +9,8 @@ public abstract class AliveObjectHealth : MonoBehaviour, IAliveObject
 {
     protected float lastAttackTime;
     protected float timeBetAttack = 0.5f;
+    protected float lastAttackTimeLeft;
+    protected float timeBetAttackLeft = 0.1f;
     protected bool isHit { 
         get {
             if (!isDead && Time.time - lastAttackTime > timeBetAttack)
@@ -18,6 +20,17 @@ public abstract class AliveObjectHealth : MonoBehaviour, IAliveObject
             }
             else 
                 return false; }
+    }
+    protected bool isHitLeft {
+        get {
+            if (!isDead && Time.time - lastAttackTimeLeft > timeBetAttackLeft)
+            {
+                lastAttackTimeLeft = Time.time;
+                return true;
+            }
+            else
+                return false;
+        }
     }
 
     protected bool isDead;

@@ -1,11 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditorInternal;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class PlayerController : AliveObjectHealth
 {
     public Gun gun;
+    public EffectSound audio;
+    public AudioClip deathClip;
+    public AudioClip hitClip;
 
     private PlayerInput playerInput;
     private Rigidbody playerRigidBody;
@@ -15,14 +20,21 @@ public class PlayerController : AliveObjectHealth
 
     public float moveSpeed = 10f;
     public float rotateSpeed = 180f;
+
+    public GameObject leftFire;
     // Start is called before the first frame update
-    
+
+    private void Awake()
+    {
+        hp = maxHp = 100;
+    }
     void Start()
     {
         playerInput = GetComponent<PlayerInput>();
         playerRigidBody = GetComponent<Rigidbody>();
         playerAnimator = GetComponent<Animator>();
         camera = GetComponent<Camera>();
+        GameManager.instance.SetMaxHp(maxHp);
     }
 
     private void FixedUpdate() //물리 갱신 주기마다 업데이트
@@ -36,9 +48,17 @@ public class PlayerController : AliveObjectHealth
     // Update is called once per frame
     void Update()
     {
+        if (GameManager.instance.isSetting)
+        {
+            return;
+        }
         if(playerInput.fire)
         {
             gun.Fire();
+        }
+        if (playerInput.left_fire && isHitLeft)
+        {
+            Instantiate(leftFire,gun.gunPivot.position,transform.rotation);
         }
     }
     private void Move()
@@ -84,10 +104,17 @@ public class PlayerController : AliveObjectHealth
             return false;
         base.OnDamage(dmg, hitPoint, hitNormal); //데미지 주고ds
 
+        GameManager.instance.SetHP= hp;
+
         if (isDead) //만약 뒤졌다면
         {
-
+            audio.PlayOneShot(deathClip);
+            playerAnimator.SetTrigger("Death");
+            GameManager.instance.GameOver();
         }
+
+        audio.PlayOneShot(hitClip);
+        StartCoroutine(GameManager.instance.HitPlayerUi());
 
         return isDead; //살았는지 뒤졌는지 반환
     }
