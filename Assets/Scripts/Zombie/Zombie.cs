@@ -14,22 +14,22 @@ public class Zombie : AliveObjectHealth
 
     LayerMask targetMask;
     CapsuleCollider bodyCollider;
-    NavMeshAgent pathFinder; // °æ·Î°è»ê AI ¿¡ÀÌÀüÆ®
+    NavMeshAgent pathFinder; // ï¿½ï¿½Î°ï¿½ï¿½ AI ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
     Animator animator;
-    Coroutine moveCoroutine; //¿òÁ÷ÀÌ´Â ÇÔ¼ö OnDamage ¿¡¼­ Death°¡ true¸é Áß´Ü
+    Coroutine moveCoroutine; //ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½ ï¿½Ô¼ï¿½ OnDamage ï¿½ï¿½ï¿½ï¿½ Deathï¿½ï¿½ trueï¿½ï¿½ ï¿½ß´ï¿½
 
     [SerializeField]
-    ParticleSystem hitEffect; //ÇÇ°Ý ÆÄÆ¼Å¬
+    ParticleSystem hitEffect; //ï¿½Ç°ï¿½ ï¿½ï¿½Æ¼Å¬
 
-    AliveObjectHealth myTarget; //ÇÃ·¹ÀÌ¾î
+    AliveObjectHealth myTarget; //ï¿½Ã·ï¿½ï¿½Ì¾ï¿½
 
-    //Å¸°ÙÀÌ Á¸ÀçÇÏ´ÂÁö Á¸ÀçÇÏÁö ¾Ê´ÂÁö
+    //Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´ï¿½ï¿½ï¿½
     bool isTargeting 
     {
         get { return myTarget != null; }
     }
 
-    Action OnDead; //Á×´Â ¾Ö´Ï¸ÞÀÌ¼Ç ³¡³¯¶§ È£Ãâ
+    Action OnDead; //ï¿½×´ï¿½ ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È£ï¿½ï¿½
     float findDis;
 
     private void Awake()
@@ -48,13 +48,13 @@ public class Zombie : AliveObjectHealth
         damage = data.damage;
         findDis = data.findDis;
 
-        pathFinder.isStopped = true; //½ÃÀÛÇÒ¶© ³×ºñ°ÔÀÌ¼Çx
+        pathFinder.isStopped = true; //ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ ï¿½×ºï¿½ï¿½ï¿½Ì¼ï¿½x
 
-        OnDead += () => StopCoroutine(moveCoroutine); //Á×À»¶§ ÇÔ²² È£ÃâÇÏ´Â ÇÔ¼öµé, ¿òÁ÷ÀÌ´Â ÄÚ·çÆ¾ Á¾·á
-        OnDead += () => animator.SetTrigger("Death"); //Á×´Â ¾Ö´Ï¸ÞÀÌ¼Ç Ãâ·Â
-        OnDead += () => pathFinder.enabled = false; //³×ºñ°ÔÀÌ¼Ç ºñÈ°¼ºÈ­
+        OnDead += () => StopCoroutine(moveCoroutine); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô²ï¿½ È£ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½ ï¿½Ú·ï¿½Æ¾ ï¿½ï¿½ï¿½ï¿½
+        OnDead += () => animator.SetTrigger("Death"); //ï¿½×´ï¿½ ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½ï¿½
+        OnDead += () => pathFinder.enabled = false; //ï¿½×ºï¿½ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­
 
-        moveCoroutine = StartCoroutine(UpdateMove()); //¿òÁ÷ÀÌ´Â ÄÚ·çÆ¾ ½ÃÀÛ
+        moveCoroutine = StartCoroutine(UpdateMove()); //ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½ ï¿½Ú·ï¿½Æ¾ ï¿½ï¿½ï¿½ï¿½
 
     }
 
@@ -75,58 +75,58 @@ public class Zombie : AliveObjectHealth
     {
         while(true)
         {
-            if (!isDead) //»ì¾ÆÀÖÀ»¶§
+            if (!isDead) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             {
-                if (!isTargeting) //Å¸°ÙÀÌ ¾ø´Ù¸é
+                if (!isTargeting) //Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ù¸ï¿½
                 {
-                    var players = Physics.OverlapSphere(transform.position, findDis, targetMask); //ÇÃ·¹ÀÌ¾îµé Áß¿¡¼­
+                    var players = Physics.OverlapSphere(transform.position, findDis, targetMask); //ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ ï¿½ß¿ï¿½ï¿½ï¿½
 
-                    //ÀÏ´Ü 0¹øÂ°·Î °¡Á®¿À±ä Çß´Âµ¥ ¸ÖÆ¼ÇÃ·¹ÀÌÇÒ¶§ °¡Àå °¡±î¿î°Å¸® °¡Á®¿À´Â°ÇÁö È®ÀÎ ÇÊ¿ä
+                    //ï¿½Ï´ï¿½ 0ï¿½ï¿½Â°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß´Âµï¿½ ï¿½ï¿½Æ¼ï¿½Ã·ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â°ï¿½ï¿½ï¿½ È®ï¿½ï¿½ ï¿½Ê¿ï¿½
                     if (players.Length != 0)
                     {
-                        pathFinder.isStopped = false; //Å½»ö ½ÃÀÛ
-                        myTarget = players[0].GetComponent<AliveObjectHealth>(); //0¹øÂ° ÇÃ·¹ÀÌ¾î¸¦ Å¸°ÙÀ¸·Î
+                        pathFinder.isStopped = false; //Å½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+                        myTarget = players[0].GetComponent<AliveObjectHealth>(); //0ï¿½ï¿½Â° ï¿½Ã·ï¿½ï¿½Ì¾î¸¦ Å¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                     }
                 }
-                else //Å¸°ÙÀÌ ÀÖ´Ù¸é
+                else //Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Ù¸ï¿½
                 {
-                    pathFinder.SetDestination(myTarget.transform.position); //Å¸°ÙÀ» ÇâÇØ ÀÌµ¿
+                    pathFinder.SetDestination(myTarget.transform.position); //Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
                 }
             }
-            yield return new WaitForSeconds(0.25f); // ÀÌ ÄÚ·çÆ¾Àº 0.25ÃÊ¸¶´Ù ¹Ýº¹
+            yield return new WaitForSeconds(0.25f); // ï¿½ï¿½ ï¿½Ú·ï¿½Æ¾ï¿½ï¿½ 0.25ï¿½Ê¸ï¿½ï¿½ï¿½ ï¿½Ýºï¿½
         }
     }
 
-    public override void DieAniamtion() //Death ¾Ö´Ï¸ÞÀÌ¼Ç Áß¿¡ È£Ãâ
+    public override void DieAniamtion() //Death ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ ï¿½ß¿ï¿½ È£ï¿½ï¿½
     {
-        bodyCollider.enabled = false; //ÄÝ¶óÀÌ´õ¸¦ ºñÈ°¼ºÈ­ ½ÃÄÑ ¶¥À¸·Î ¶³±¸°í
-        Destroy(gameObject, 1f); //1ÃÊµÚ »èÁ¦ ¿¹¾à
+        bodyCollider.enabled = false; //ï¿½Ý¶ï¿½ï¿½Ì´ï¿½ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        Destroy(gameObject, 1f); //1ï¿½Êµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     }
 
     [ContextMenu("GameOver")]
-    public void GameOver() //ÇÃ·¹ÀÌ¾î°¡ ÀüºÎ Á×À¸¸é È£Ãâ ¿¹Á¤
+    public void GameOver() //ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     {
-        StopCoroutine(moveCoroutine); //Å½»ö Á¾·á
-        pathFinder.enabled = false; //³×ºñ°ÔÀÌ¼Ç ºñÈ°¼ºÈ­
-        animator.SetTrigger("Idle"); //Idle ¾Ö´Ï¸ÞÀÌ¼Ç È£Ãâ
+        StopCoroutine(moveCoroutine); //Å½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        pathFinder.enabled = false; //ï¿½×ºï¿½ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­
+        animator.SetTrigger("Idle"); //Idle ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ È£ï¿½ï¿½
     }
 
-    //ÇÇ°Ý½Ã È£ÃâÇÒ ÇÔ¼ö
+    //ï¿½Ç°Ý½ï¿½ È£ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½
     public override bool OnDamage(int dmg, Vector3 hitPoint, Vector3 hitNormal)
     {
-        if (isDead) // ÀÌ¹Ì µÚÁø³ðÀº return False ÇØÁÙ·¡
+        if (isDead) // ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ return False ï¿½ï¿½ï¿½Ù·ï¿½
             return false;
         hitEffect.transform.position = hitPoint;
         hitEffect.transform.rotation = Quaternion.LookRotation(hitNormal);
-        hitEffect.Play(); //ÀÌÆåÆ® Ãâ·Â ÇØÁÖ°í
-        base.OnDamage(dmg, hitPoint, hitNormal); //µ¥¹ÌÁö ÁÖ°í
+        hitEffect.Play(); //ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ö°ï¿½
+        base.OnDamage(dmg, hitPoint, hitNormal); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö°ï¿½
 
-        if (isDead) //¸¸¾à µÚÁ³´Ù¸é
+        if (isDead) //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ù¸ï¿½
         {
-            OnDead(); //Action ¿¡ ³ÖÀº ÀÌº¥Æ®(ÇÔ¼ö) µé È£Ãâ.
+            OnDead(); //Action ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ®(ï¿½Ô¼ï¿½) ï¿½ï¿½ È£ï¿½ï¿½.
         }
 
-        return isDead; //»ì¾Ò´ÂÁö µÚÁ³´ÂÁö ¹ÝÈ¯
+        return isDead; //ï¿½ï¿½Ò´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯
     }
     private void OnTriggerEnter(Collider other)
     {
