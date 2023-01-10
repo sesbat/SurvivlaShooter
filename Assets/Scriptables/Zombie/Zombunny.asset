@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf14146b41e01b245a481a7de45d79ee, type: 3}
+  m_Name: Zombunny
+  m_EditorClassIdentifier: 
+  zombies: {fileID: 421391019582030340, guid: af9c93da0334f5c439300ff853cc23e5, type: 3}
+  hitSound: {fileID: 0}
+  hp: 100
+  maxHp: 100
+  damage: 30
+  speed: 1
+  findDis: 20
