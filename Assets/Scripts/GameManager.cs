@@ -8,10 +8,11 @@ using UnityEditorInternal;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+    [SerializeField]
+    GameObject hudUi;
 
-    [SerializeField]
+    Setting setting;
     TextMeshProUGUI score;
-    [SerializeField]
     Slider hpBar;
     bool isGameOver = false;
 
@@ -27,8 +28,13 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance != null)
+        if (instance == null)
+        {
+            setting = hudUi.transform.GetChild(4).GetComponent<Setting>();
+            score = hudUi.GetComponentInChildren<TextMeshProUGUI>();
+            hpBar = hudUi.GetComponentInChildren<Slider>();
             instance = this;
+        }
         else
             Destroy(instance);
     }
@@ -51,13 +57,9 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.A))
+        if(Input.GetKeyDown(KeyCode.Escape))
         {
-            SetHP -= 10f;
-        }
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            SetScore = 1000;
+            setting.gameObject.SetActive(!setting.gameObject.activeSelf);
         }
     }
 }
