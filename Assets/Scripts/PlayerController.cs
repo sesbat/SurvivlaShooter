@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class PlayerMove : AliveObjectHealth
+public class PlayerController : AliveObjectHealth
 {
+    public Gun gun;
+
     private PlayerInput playerInput;
     private Rigidbody playerRigidBody;
     private Animator playerAnimator;
@@ -34,7 +36,10 @@ public class PlayerMove : AliveObjectHealth
     // Update is called once per frame
     void Update()
     {
-        
+        if(playerInput.fire)
+        {
+            gun.Fire();
+        }
     }
     private void Move()
     {
