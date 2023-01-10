@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6387516200909349544}
   - component: {fileID: 6387516200914924426}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6387516200909349548}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GunBarrelEnd
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -129,7 +129,7 @@ GameObject:
   - component: {fileID: 501160653079701970}
   - component: {fileID: 6308650386590236524}
   - component: {fileID: -4639819128470441899}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -226,7 +226,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6387516200909349604}
   - component: {fileID: 6387516200914924424}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}

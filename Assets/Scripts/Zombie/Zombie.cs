@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
-public class Zombie : AliveObjectHeath
+public class Zombie : AliveObjectHealth
 {
     public ZombieData data;
 
@@ -21,7 +21,7 @@ public class Zombie : AliveObjectHeath
     [SerializeField]
     ParticleSystem hitEffect; //피격 파티클
 
-    AliveObjectHeath myTarget; //플레이어
+    AliveObjectHealth myTarget; //플레이어
 
     //타겟이 존재하는지 존재하지 않는지
     bool isTargeting 
@@ -85,7 +85,7 @@ public class Zombie : AliveObjectHeath
                     if (players.Length != 0)
                     {
                         pathFinder.isStopped = false; //탐색 시작
-                        myTarget = players[0].GetComponent<AliveObjectHeath>(); //0번째 플레이어를 타겟으로
+                        myTarget = players[0].GetComponent<AliveObjectHealth>(); //0번째 플레이어를 타겟으로
                     }
                 }
                 else //타겟이 있다면
@@ -130,7 +130,7 @@ public class Zombie : AliveObjectHeath
     }
     private void OnTriggerEnter(Collider other)
     {
-        var obj = other.transform.GetComponent<AliveObjectHeath>();
+        var obj = other.transform.GetComponent<AliveObjectHealth>();
         if (obj != null && obj == myTarget && isHit)
         {
             var hitPoint = other.ClosestPoint(transform.position);

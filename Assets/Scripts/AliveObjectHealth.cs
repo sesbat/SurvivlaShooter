@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public abstract class AliveObjectHeath : MonoBehaviour, IAliveObject
+public abstract class AliveObjectHealth : MonoBehaviour, IAliveObject
 {
     protected float lastAttackTime;
     protected float timeBetAttack = 0.5f;

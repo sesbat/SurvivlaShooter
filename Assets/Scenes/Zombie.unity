@@ -620,6 +620,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4478785602187573583, guid: 73643e7ddba38074fade3df8090231fb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6185104444003553286, guid: 73643e7ddba38074fade3df8090231fb, type: 3}
       propertyPath: m_Name
       value: Hud UI
@@ -718,6 +722,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6185104444507154582, guid: 73643e7ddba38074fade3df8090231fb, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6185104444705831234, guid: 73643e7ddba38074fade3df8090231fb, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

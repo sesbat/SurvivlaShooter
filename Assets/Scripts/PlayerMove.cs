@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class PlayerMove : MonoBehaviour
+public class PlayerMove : AliveObjectHealth
 {
     private PlayerInput playerInput;
     private Rigidbody playerRigidBody;
@@ -70,5 +70,25 @@ public class PlayerMove : MonoBehaviour
             transform.rotation = Quaternion.LookRotation(forward);
         }
         Debug.DrawRay(ray.origin, ray.direction * 1000, Color.blue);
+    }
+
+    //피격시 호출할 함수
+    public override bool OnDamage(int dmg, Vector3 hitPoint, Vector3 hitNormal)
+    {
+        if (isDead) // 이미 뒤진놈은 return False 해줄래
+            return false;
+        base.OnDamage(dmg, hitPoint, hitNormal); //데미지 주고
+
+        if (isDead) //만약 뒤졌다면
+        {
+
+        }
+
+        return isDead; //살았는지 뒤졌는지 반환
+    }
+
+    public override void DieAniamtion()
+    {
+
     }
 }
