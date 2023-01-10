@@ -77,7 +77,7 @@ public class PlayerMove : AliveObjectHealth
     {
         if (isDead) // 이미 뒤진놈은 return False 해줄래
             return false;
-        base.OnDamage(dmg, hitPoint, hitNormal); //데미지 주고
+        base.OnDamage(dmg, hitPoint, hitNormal); //데미지 주고ds
 
         if (isDead) //만약 뒤졌다면
         {

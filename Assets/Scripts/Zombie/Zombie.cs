@@ -103,7 +103,6 @@ public class Zombie : AliveObjectHealth
         Destroy(gameObject, 1f); //1초뒤 삭제 예약
     }
 
-    [ContextMenu("GameOver")]
     public void GameOver() //플레이어가 전부 죽으면 호출 예정
     {
         StopCoroutine(moveCoroutine); //탐색 종료
